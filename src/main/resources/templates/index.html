@@ -8,9 +8,9 @@
 
     <body>
         <h1>Heippa vaan!</h1>
+        <ul th:each="alue : ${alueet}">
+            <li th:text="${alue}"></li>
+        </ul>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
     </body>
 </html>

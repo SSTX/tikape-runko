@@ -1,49 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package tikape.runko.database;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author ttiira
+ */
 public class Database {
 
-    private String databaseAddress;
+    private Connection yhteys;
 
-    public Database(String databaseAddress) throws ClassNotFoundException {
-        this.databaseAddress = databaseAddress;
+    public Database(String driver, String address) throws Exception {
+        Class.forName(driver);
+        this.yhteys = DriverManager.getConnection(address);
     }
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(databaseAddress);
-    }
+    public <T> List<T> kyselyTulokset(String kysely, Keraaja<T> keraaja, Object... parametrit) {
 
-    public void init() {
-        List<String> lauseet = sqliteLauseet();
-
-        // "try with resources" sulkee resurssin automaattisesti lopuksi
-        try (Connection conn = getConnection()) {
-            Statement st = conn.createStatement();
-
-            // suoritetaan komennot
-            for (String lause : lauseet) {
-                System.out.println("Running command >> " + lause);
-                st.executeUpdate(lause);
+        List<T> rivit = new ArrayList<>();
+        try (PreparedStatement lause = yhteys.prepareStatement(kysely)) {
+            for (int i = 0; i < parametrit.length; i++) {
+                lause.setObject(i + 1, parametrit[i]);
             }
-
-        } catch (Throwable t) {
-            // jos tietokantataulu on jo olemassa, ei komentoja suoriteta
-            System.out.println("Error >> " + t.getMessage());
+            ResultSet rs = lause.executeQuery();
+            while (rs.next()) {
+                rivit.add(keraaja.keraa(rs));
+            }
+            rs.close();
+        } catch (Exception e) {
+            return new ArrayList<>();
         }
+        return rivit;
     }
 
-    private List<String> sqliteLauseet() {
-        ArrayList<String> lista = new ArrayList<>();
-
-        // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
-        lista.add("CREATE TABLE Opiskelija (id integer PRIMARY KEY, nimi varchar(255));");
-        lista.add("INSERT INTO Opiskelija (nimi) VALUES ('Platon');");
-        lista.add("INSERT INTO Opiskelija (nimi) VALUES ('Aristoteles');");
-        lista.add("INSERT INTO Opiskelija (nimi) VALUES ('Homeros');");
-
-        return lista;
+    public int update(String kysely, Object... parametrit) throws SQLException {
+        PreparedStatement lause = yhteys.prepareStatement(kysely);
+        for (int i = 0; i < parametrit.length; i++) {
+            lause.setObject(i + 1, parametrit[i]);
+        }
+        int muutoksia = lause.executeUpdate();
+        lause.close();
+        return muutoksia;
     }
 }
