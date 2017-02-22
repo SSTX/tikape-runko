@@ -27,6 +27,10 @@ public class Keskustelualue {
         this(id, nimi, new ArrayList<>());
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public List<Viestiketju> getViestiketjut() {
         return viestiketjut;
     }

@@ -15,13 +15,17 @@ public class Viesti {
     private int id;
     private String nimimerkki;
     private String sisalto;
-    private Date aikaleima;
+    private String aikaleima;
     
-    public Viesti(int id, String nimimerkki, String sisalto, Date aikaleima) {
+    public Viesti(int id, String sisalto, String nimimerkki, String aikaleima) {
         this.id = id;
         this.nimimerkki = nimimerkki;
         this.sisalto = sisalto;
         this.aikaleima = aikaleima;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getNimimerkki() {
@@ -32,7 +36,7 @@ public class Viesti {
         return sisalto;
     }
 
-    public Date getAikaleima() {
+    public String getAikaleima() {
         return aikaleima;
     }
 
@@ -44,7 +48,7 @@ public class Viesti {
         this.sisalto = sisalto;
     }
 
-    public void setAikaleima(Date aikaleima) {
+    public void setAikaleima(String aikaleima) {
         this.aikaleima = aikaleima;
     }
     

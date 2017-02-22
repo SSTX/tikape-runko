@@ -8,9 +8,9 @@
 
     <body>
         <h1>Heippa vaan!</h1>
-        <ul th:each="alue : ${alueet}">
-            <li th:text="${alue}"></li>
-        </ul>
+        <div th:each="alue : ${alueet}">
+            <a th:href="@{'~/alue/'+${alue.id}}" th:text="${alue}"></a>
+        </div>
 
     </body>
 </html>

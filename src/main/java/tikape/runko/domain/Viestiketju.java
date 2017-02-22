@@ -22,6 +22,10 @@ public class Viestiketju {
         this.viestit = viestit;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public String getAihe() {
         return aihe;
     }

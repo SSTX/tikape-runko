@@ -7,9 +7,9 @@
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
-        <div th:each="ketju : ${ketjut}">
-            <a th:href="@{'~/ketju/'+${ketju.id}}" th:text="${ketju.aihe}"></a>
+        <h1></h1>
+        <div th:each="viesti : ${viestit}">
+            <span th:text="${viesti.sisalto}"></span>
         </div>
 
     </body>

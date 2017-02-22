@@ -14,6 +14,7 @@ public abstract class Dao<T, K> {
     public Dao(Database database) {
         this.database = database;
     }
+    public abstract T etsiYksi(int key);
     
     public abstract List<T> etsiKaikki();
     
