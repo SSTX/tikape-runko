@@ -8,8 +8,11 @@
 
     <body>
         <h1>Heippa vaan!</h1>
-        <div th:each="alue : ${alueet}">
+        <div class="nimet" th:each="alue : ${alueet}">
             <a th:href="@{'~/alue/'+${alue.id}}" th:text="${alue}"></a>
+        </div>
+        <div class="viimeisinViesti" th:each="viimeisinViesti : ${viimeisimmatViestit}">
+            <span th:text="${viimeisinViesti != null} ? ${viimeisinViesti.aikaleima} : '-'"></span>
         </div>
 
     </body>

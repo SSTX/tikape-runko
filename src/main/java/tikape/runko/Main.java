@@ -2,6 +2,7 @@ package tikape.runko;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -19,7 +20,13 @@ public class Main {
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             List<Keskustelualue> alueet = keskustelualueDao.etsiKaikki();
+            List<List<Viesti>> alueidenViestit = alueet.stream().map((alue)
+                    -> viestiDao.etsiTasmaavat(alue)).collect(Collectors.toList());
+            List<Viesti> viimeisimmat = alueidenViestit.stream().map((viestit) 
+                    -> viestit.stream().max(Viesti::compareTo).orElse(null))
+                    .collect(Collectors.toList());
             map.put("alueet", alueet);
+            map.put("viimeisimmatViestit", viimeisimmat);
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
@@ -38,7 +45,6 @@ public class Main {
             Viestiketju ketju = viestiketjuDao.etsiYksi(Integer.parseInt(req.params(":id")));
             List<Viesti> viestit = viestiDao.etsiTasmaavat(ketju);
             map.put("viestit", viestit);
-
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
     }

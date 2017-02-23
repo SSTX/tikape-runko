@@ -35,8 +35,10 @@ public class ViestiketjuDao extends Dao<Viestiketju, Keskustelualue> {
 
     @Override
     public List<Viestiketju> etsiTasmaavat(Keskustelualue k) {
-        String kysely = "SELECT * FROM Viestiketju,Keskustelualue WHERE Viestiketju.keskustelualue = Keskustelualue.id";
-        return this.database.kyselyTulokset(kysely, new ViestiketjuKeraaja());
+        String kysely = "SELECT * FROM Viestiketju,Keskustelualue "
+                + "WHERE Viestiketju.keskustelualue = Keskustelualue.id "
+                + "AND Keskustelualue.id = ?";
+        return this.database.kyselyTulokset(kysely, new ViestiketjuKeraaja(), k.getId());
     }
     
 }

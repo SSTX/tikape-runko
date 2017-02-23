@@ -1,9 +1,8 @@
-
-
 package tikape.runko.database;
 
 import java.util.List;
 import tikape.runko.collectors.ViestiKeraaja;
+import tikape.runko.domain.Keskustelualue;
 import tikape.runko.domain.Viesti;
 import tikape.runko.domain.Viestiketju;
 
@@ -12,7 +11,7 @@ import tikape.runko.domain.Viestiketju;
  * @author ttiira
  */
 public class ViestiDao extends Dao<Viesti, Viestiketju> {
-    
+
     public ViestiDao(Database db) {
         super(db);
     }
@@ -36,8 +35,25 @@ public class ViestiDao extends Dao<Viesti, Viestiketju> {
 
     @Override
     public List<Viesti> etsiTasmaavat(Viestiketju k) {
-        String kysely = "SELECT * FROM Viesti,Viestiketju WHERE Viesti.viestiketju = Viestiketju.id";
-        return this.database.kyselyTulokset(kysely, new ViestiKeraaja());
+        if (k == null) {
+            return null;
+        }
+        String kysely = "SELECT Viesti.* "
+                + "FROM Viesti,Viestiketju "
+                + "WHERE Viesti.viestiketju = Viestiketju.id "
+                + "AND Viestiketju.id = ?;";
+        return this.database.kyselyTulokset(kysely, new ViestiKeraaja(), k.getId());
     }
-    
+
+    public List<Viesti> etsiTasmaavat(Keskustelualue alue) {
+        if (alue == null) {
+            return null;
+        }
+        String kysely = "SELECT Viesti.* "
+                + "FROM Viesti,Viestiketju,Keskustelualue "
+                + "WHERE Viesti.viestiketju = Viestiketju.id "
+                + "AND Viestiketju.keskustelualue = Keskustelualue.id "
+                + "AND Keskustelualue.id = ?;";
+        return this.database.kyselyTulokset(kysely, new ViestiKeraaja(), alue.getId());
+    }
 }

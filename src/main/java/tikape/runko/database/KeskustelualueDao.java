@@ -20,6 +20,7 @@ public class KeskustelualueDao extends Dao<Keskustelualue, Keskustelualue> {
         super(db);
     }
 
+    @Override
     public Keskustelualue etsiYksi(int key) {
         String kysely = "SELECT * FROM Keskustelualue WHERE Keskustelualue.id = ?";
         List<Keskustelualue> tulokset = this.database.kyselyTulokset(kysely, new KeskustelualueKeraaja(), key);

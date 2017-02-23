@@ -5,19 +5,22 @@
  */
 package tikape.runko.domain;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  *
  * @author ttiira
  */
-public class Viesti {
+public class Viesti implements Comparable<Viesti> {
     private int id;
     private String nimimerkki;
     private String sisalto;
-    private String aikaleima;
+    private Aikaleima aikaleima;
     
-    public Viesti(int id, String sisalto, String nimimerkki, String aikaleima) {
+    public Viesti(int id, String sisalto, String nimimerkki, Aikaleima aikaleima) {
         this.id = id;
         this.nimimerkki = nimimerkki;
         this.sisalto = sisalto;
@@ -36,7 +39,7 @@ public class Viesti {
         return sisalto;
     }
 
-    public String getAikaleima() {
+    public Aikaleima getAikaleima() {
         return aikaleima;
     }
 
@@ -48,8 +51,12 @@ public class Viesti {
         this.sisalto = sisalto;
     }
 
-    public void setAikaleima(String aikaleima) {
+    public void setAikaleima(Aikaleima aikaleima) {
         this.aikaleima = aikaleima;
+    }
+    
+    public int compareTo(Viesti v) {
+        return this.aikaleima.compareTo(v.getAikaleima());
     }
     
     
