@@ -51,6 +51,7 @@ public class Database {
                 lause.setObject(i + 1, parametrit[i]);
             }
             muutoksia = lause.executeUpdate();
+            lause.close();
         } catch (Exception e) {
             muutoksia = 0;
         }

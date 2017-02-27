@@ -62,9 +62,9 @@ public class ViestiketjuDao extends Dao<Viestiketju, Keskustelualue> {
         
     }
     
-    public void lisaa(String nimi) {
-        String kysely = "INSERT INTO Viestiketju (aihe) "
-                + "VALUES (?)";
-        this.database.update(kysely, nimi);
+    public void lisaa(Keskustelualue alue, String nimi) {
+        String kysely = "INSERT INTO Viestiketju (keskustelualue, aihe) "
+                + "VALUES (?, ?)";
+        this.database.update(kysely, alue.getId(), nimi);
     }
 }

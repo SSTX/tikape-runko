@@ -59,7 +59,8 @@ public class Main {
             String nimimerkki = req.queryParams("nimimerkki");
             String sisalto = req.queryParams("sisalto");
             String aihe = req.queryParams("aihe");
-            viestiketjuDao.lisaa(aihe);
+            Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
+            viestiketjuDao.lisaa(alue, aihe);
             Viestiketju lisatty = viestiketjuDao.uusin();
             viestiDao.lisaa(lisatty, sisalto, nimimerkki, new Aikaleima(new Date(System.currentTimeMillis())));
             res.redirect("/ketju/" + lisatty.getId());
