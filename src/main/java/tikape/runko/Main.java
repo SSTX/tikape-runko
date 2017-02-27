@@ -39,9 +39,11 @@ public class Main {
             HashMap map = new HashMap<>();
             Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
             List<Viestiketju> ketjut = viestiketjuDao.viimeisimmatKymmenen(alue);
-            System.out.println(ketjut);
             List<Viesti> viimeisimmat = viestiDao.ketjujenViimeisimmat(ketjut);
+            List<Integer> viestimaarat = viestiDao.ketjujenViestimaarat(ketjut);
             map.put("ketjut", ketjut);
+            map.put("viimeisimmatViestit", viimeisimmat);
+            map.put("viestimaarat", viestimaarat);
 
             return new ModelAndView(map, "keskustelualue");
         }, new ThymeleafTemplateEngine());
@@ -66,10 +68,11 @@ public class Main {
             String nimimerkki = req.queryParams("nimimerkki");
             String sisalto = req.queryParams("sisalto");
             String aihe = req.queryParams("aihe");
+            Aikaleima aikaleima = new Aikaleima(new Date(System.currentTimeMillis()));
             Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
             viestiketjuDao.lisaa(alue, aihe);
             Viestiketju lisatty = viestiketjuDao.uusin();
-            viestiDao.lisaa(lisatty, sisalto, nimimerkki, new Aikaleima(new Date(System.currentTimeMillis())));
+            viestiDao.lisaa(lisatty, sisalto, nimimerkki, aikaleima);
             res.redirect("/ketju/" + lisatty.getId());
             return "";
         });
