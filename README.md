@@ -7,3 +7,10 @@ Päivämäärä | Tunnit | Kuvaus
 22.2.2017 | 1.5 | alkeellinen toteutus tiedon hakemiselle tietokannasta
 23.2.2017 | 2.5 | lisää tiedon hakemista
 24.2.2017 | 1 | suunnittelua
+27.2.2017 | 2.5 | tietokannan ohjelmointia ja html:ää vähän
+
+## Eelis
+Päivämäärä | Tunnit | Kuvaus
+-----|----|-----
+24.2.2017 | 1 | suunnittelua
+27.2.2017 | 2 | tietokannan ohjelmointia ja html:ää vähän
