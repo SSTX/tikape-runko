@@ -1,6 +1,7 @@
 package tikape.runko.database;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import tikape.runko.collectors.ViestiKeraaja;
 import tikape.runko.domain.Keskustelualue;
 import tikape.runko.domain.Viesti;
@@ -56,4 +57,36 @@ public class ViestiDao extends Dao<Viesti, Viestiketju> {
                 + "AND Keskustelualue.id = ?;";
         return this.database.kyselyTulokset(kysely, new ViestiKeraaja(), alue.getId());
     }
+
+    public List<Viesti> alueidenViimeisimmat(List<Keskustelualue> alueet) {
+        return alueet.stream()
+                .map((alue) -> this.etsiTasmaavat(alue))
+                .map((viestit) -> viestit.stream()
+                        .max(Viesti::compareTo).orElse(null))
+                .collect(Collectors.toList());
+    }
+
+    public List<Integer> alueidenViestimaarat(List<Keskustelualue> alueet) {
+        return alueet.stream()
+                .map((alue) -> this.etsiTasmaavat(alue))
+                .map((viestit) -> viestit.size())
+                .collect(Collectors.toList());
+    }
+
+    public List<Viesti> ketjujenViimeisimmat(List<Viestiketju> ketjut) {
+        return ketjut.stream()
+                .map((ketju) -> this.etsiTasmaavat(ketju))
+                .map((viestit) -> viestit.stream()
+                        .max(Viesti::compareTo).orElse(null))
+                .collect(Collectors.toList());
+    }
+
+    public List<Integer> ketjujenViestimaarat(List<Viestiketju> ketjut) {
+        return ketjut.stream()
+                .map((ketju) -> this.etsiTasmaavat(ketju))
+                .map((viestit) -> viestit.size())
+                .collect(Collectors.toList());
+    }
 }
+
+

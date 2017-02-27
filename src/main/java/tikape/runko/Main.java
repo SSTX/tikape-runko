@@ -20,12 +20,8 @@ public class Main {
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             List<Keskustelualue> alueet = keskustelualueDao.etsiKaikki();
-            List<List<Viesti>> alueidenViestit = alueet.stream().map((alue)
-                    -> viestiDao.etsiTasmaavat(alue)).collect(Collectors.toList());
-            List<Viesti> viimeisimmat = alueidenViestit.stream().map((viestit) 
-                    -> viestit.stream().max(Viesti::compareTo).orElse(null))
-                    .collect(Collectors.toList());
-            List<Integer> viestimaarat = alueidenViestit.stream().map(List::size).collect(Collectors.toList());
+            List<Viesti> viimeisimmat = viestiDao.alueidenViimeisimmat(alueet);
+            List<Integer> viestimaarat = viestiDao.alueidenViestimaarat(alueet);
             map.put("alueet", alueet);
             map.put("viimeisimmatViestit", viimeisimmat);
             map.put("viestimaarat", viestimaarat);
@@ -36,7 +32,8 @@ public class Main {
         get("/alue/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
-            List<Viestiketju> ketjut = viestiketjuDao.etsiTasmaavat(alue);
+            List<Viestiketju> ketjut = viestiketjuDao.viimeisimmatKymmenen();
+            List<Viesti> viimeisimmat = viestiDao.ketjujenViimeisimmat(ketjut);
             map.put("ketjut", ketjut);
 
             return new ModelAndView(map, "keskustelualue");
