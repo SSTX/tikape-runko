@@ -45,6 +45,7 @@ public class Main {
             Viestiketju ketju = viestiketjuDao.etsiYksi(Integer.parseInt(req.params(":id")));
             List<Viesti> viestit = viestiDao.etsiTasmaavat(ketju);
             map.put("viestit", viestit);
+            
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
     }
