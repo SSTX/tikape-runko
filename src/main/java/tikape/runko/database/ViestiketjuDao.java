@@ -41,16 +41,18 @@ public class ViestiketjuDao extends Dao<Viestiketju, Keskustelualue> {
         return this.database.kyselyTulokset(kysely, new ViestiketjuKeraaja(), k.getId());
     }
     
-    public List<Viestiketju> viimeisimmatKetjutRajoin(int alaraja, int ylaraja){
-        String kysely = "SELECT Viestiketju.* FROM Viestiketju,Viesti "
+    public List<Viestiketju> viimeisimmatKetjutRajoin(Keskustelualue alue, int alaraja, int ylaraja){
+        String kysely = "SELECT Viestiketju.* FROM Viestiketju,Viesti,Keskustelualue "
                 + "WHERE Viestiketju.id = Viesti.viestiketju "
+                + "AND Viestiketju.keskustelualue = Keskustelualue.id "
+                + "AND Viestiketju.keskustelualue = ? "
                 + "ORDER BY Viesti.aikaleima DESC "
                 + "LIMIT ? OFFSET ?";
-        return this.database.kyselyTulokset(kysely, new ViestiketjuKeraaja(), ylaraja, alaraja);
+        return this.database.kyselyTulokset(kysely, new ViestiketjuKeraaja(), alue.getId(), ylaraja, alaraja);
     }
     
-    public List<Viestiketju> viimeisimmatKymmenen() {
-        return this.viimeisimmatKetjutRajoin(1, 10);
+    public List<Viestiketju> viimeisimmatKymmenen(Keskustelualue alue) {
+        return this.viimeisimmatKetjutRajoin(alue, 0, 10);
     }
     
     public Viestiketju uusin() {

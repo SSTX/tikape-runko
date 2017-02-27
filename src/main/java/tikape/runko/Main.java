@@ -38,7 +38,8 @@ public class Main {
         get("/alue/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
-            List<Viestiketju> ketjut = viestiketjuDao.viimeisimmatKymmenen();
+            List<Viestiketju> ketjut = viestiketjuDao.viimeisimmatKymmenen(alue);
+            System.out.println(ketjut);
             List<Viesti> viimeisimmat = viestiDao.ketjujenViimeisimmat(ketjut);
             map.put("ketjut", ketjut);
 
@@ -70,6 +71,16 @@ public class Main {
             Viestiketju lisatty = viestiketjuDao.uusin();
             viestiDao.lisaa(lisatty, sisalto, nimimerkki, new Aikaleima(new Date(System.currentTimeMillis())));
             res.redirect("/ketju/" + lisatty.getId());
+            return "";
+        });
+        
+        post("/ketju/:id", (req, res) -> {
+            Viestiketju ketju = viestiketjuDao.etsiYksi(Integer.parseInt(req.params(":id")));
+            String sisalto = req.queryParams("sisalto");
+            String nimimerkki = req.queryParams("nimimerkki");
+            Aikaleima aikaleima = new Aikaleima(new Date(System.currentTimeMillis()));
+            viestiDao.lisaa(ketju, sisalto, nimimerkki, aikaleima);
+            res.redirect("/ketju/" + req.params(":id"));
             return "";
         });
     }

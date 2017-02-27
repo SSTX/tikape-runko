@@ -11,6 +11,14 @@
         <div th:each="viesti : ${viestit}">
             <span th:text="${viesti.sisalto}"></span>
         </div>
-
+        <div>
+            <form method="POST">
+                Viesti<br/>
+                <input type="text" name="sisalto" />
+                Nimimerkki<br/>
+                <input type="text" name="nimimerkki" />
+                <input type="submit" name="viestitä" />
+            </form>
+        </div>
     </body>
 </html>
