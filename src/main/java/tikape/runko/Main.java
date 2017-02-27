@@ -25,8 +25,10 @@ public class Main {
             List<Viesti> viimeisimmat = alueidenViestit.stream().map((viestit) 
                     -> viestit.stream().max(Viesti::compareTo).orElse(null))
                     .collect(Collectors.toList());
+            List<Integer> viestimaarat = alueidenViestit.stream().map(List::size).collect(Collectors.toList());
             map.put("alueet", alueet);
             map.put("viimeisimmatViestit", viimeisimmat);
+            map.put("viestimaarat", viestimaarat);
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
