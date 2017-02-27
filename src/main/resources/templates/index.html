@@ -14,6 +14,13 @@
         <div class="viimeisinViesti" th:each="viimeisinViesti : ${viimeisimmatViestit}">
             <span th:text="${viimeisinViesti != null} ? ${viimeisinViesti.aikaleima} : '-'"></span>
         </div>
+        <div>
+            <form method="POST">
+                Nimi:<br/>
+                <input type="text" name="nimi" />
+                <input type="submit" name="luo" />
+            </form>
+        </div>
 
     </body>
 </html>

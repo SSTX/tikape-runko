@@ -30,6 +30,11 @@ public class Aikaleima implements Comparable<Aikaleima> {
         }
     }
     
+    public Aikaleima(Date date) {
+        this.form = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        this.date = date;
+    }
+    
     @Override
     public String toString() {
         return this.form.format(this.date);

@@ -52,4 +52,19 @@ public class ViestiketjuDao extends Dao<Viestiketju, Keskustelualue> {
     public List<Viestiketju> viimeisimmatKymmenen() {
         return this.viimeisimmatKetjutRajoin(1, 10);
     }
+    
+    public Viestiketju uusin() {
+        String kysely = "SELECT * FROM Viestiketju "
+                + "ORDER BY id DESC "
+                + "LIMIT 1";
+        List<Viestiketju> tulokset = this.database.kyselyTulokset(kysely, new ViestiketjuKeraaja());
+        return tulokset.stream().findFirst().orElse(null);
+        
+    }
+    
+    public void lisaa(String nimi) {
+        String kysely = "INSERT INTO Viestiketju (aihe) "
+                + "VALUES (?)";
+        this.database.update(kysely, nimi);
+    }
 }

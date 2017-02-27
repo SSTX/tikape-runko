@@ -44,13 +44,16 @@ public class Database {
         return rivit;
     }
 
-    public int update(String kysely, Object... parametrit) throws SQLException {
-        PreparedStatement lause = yhteys.prepareStatement(kysely);
-        for (int i = 0; i < parametrit.length; i++) {
-            lause.setObject(i + 1, parametrit[i]);
+    public int update(String kysely, Object... parametrit) {
+        int muutoksia;
+        try (PreparedStatement lause = yhteys.prepareStatement(kysely)) {
+            for (int i = 0; i < parametrit.length; i++) {
+                lause.setObject(i + 1, parametrit[i]);
+            }
+            muutoksia = lause.executeUpdate();
+        } catch (Exception e) {
+            muutoksia = 0;
         }
-        int muutoksia = lause.executeUpdate();
-        lause.close();
         return muutoksia;
     }
 }

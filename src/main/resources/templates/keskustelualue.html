@@ -11,6 +11,17 @@
         <div th:each="ketju : ${ketjut}">
             <a th:href="@{'~/ketju/'+${ketju.id}}" th:text="${ketju.aihe}"></a>
         </div>
+        <div>
+            <form method="POST">
+                Aihe:<br />
+                <input type="text" name="aihe" />
+                Viesti<br/>
+                <input type="text" name="sisalto" />
+                Nimimerkki<br/>
+                <input type="text" name="nimimerkki" />
+                <input type="submit" name="viestitä" />
+            </form>
+        </div>
 
     </body>
 </html>

@@ -1,8 +1,8 @@
 package tikape.runko;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -44,8 +44,26 @@ public class Main {
             Viestiketju ketju = viestiketjuDao.etsiYksi(Integer.parseInt(req.params(":id")));
             List<Viesti> viestit = viestiDao.etsiTasmaavat(ketju);
             map.put("viestit", viestit);
-            
+
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
+
+        post("/", (req, res) -> {
+            String nimi = req.queryParams("nimi");
+            keskustelualueDao.lisaa(nimi);
+            res.redirect("/");
+            return "";
+        });
+
+        post("/alue/:id", (req, res) -> {
+            String nimimerkki = req.queryParams("nimimerkki");
+            String sisalto = req.queryParams("sisalto");
+            String aihe = req.queryParams("aihe");
+            viestiketjuDao.lisaa(aihe);
+            Viestiketju lisatty = viestiketjuDao.uusin();
+            viestiDao.lisaa(lisatty, sisalto, nimimerkki, new Aikaleima(new Date(System.currentTimeMillis())));
+            res.redirect("/ketju/" + lisatty.getId());
+            return "";
+        });
     }
 }

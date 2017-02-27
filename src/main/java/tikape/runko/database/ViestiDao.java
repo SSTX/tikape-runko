@@ -3,6 +3,7 @@ package tikape.runko.database;
 import java.util.List;
 import java.util.stream.Collectors;
 import tikape.runko.collectors.ViestiKeraaja;
+import tikape.runko.domain.Aikaleima;
 import tikape.runko.domain.Keskustelualue;
 import tikape.runko.domain.Viesti;
 import tikape.runko.domain.Viestiketju;
@@ -15,6 +16,12 @@ public class ViestiDao extends Dao<Viesti, Viestiketju> {
 
     public ViestiDao(Database db) {
         super(db);
+    }
+    
+    public void lisaa(Viestiketju ketju, String sisalto, String nimimerkki, Aikaleima aikaleima) {
+        String kysely = "INSERT INTO Viesti (viestiketju, sisalto, nimimerkki, aikaleima) "
+                + "VALUES (?, ?, ?, ?)";
+        this.database.update(kysely, ketju.getId(), sisalto, nimimerkki, aikaleima.toString());
     }
 
     @Override

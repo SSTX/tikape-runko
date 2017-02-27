@@ -43,4 +43,10 @@ public class KeskustelualueDao extends Dao<Keskustelualue, Keskustelualue> {
         return this.etsiKaikki();
     }
     
+    public void lisaa(String nimi) {
+        String kysely = "INSERT INTO Keskustelualue (nimi) "
+                + "VALUES (?)";
+        this.database.update(kysely, nimi);
+    }
+    
 }
