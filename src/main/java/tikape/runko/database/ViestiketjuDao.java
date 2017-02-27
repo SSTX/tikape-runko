@@ -42,7 +42,7 @@ public class ViestiketjuDao extends Dao<Viestiketju, Keskustelualue> {
     }
     
     public List<Viestiketju> viimeisimmatKetjutRajoin(Keskustelualue alue, int alaraja, int ylaraja){
-        String kysely = "SELECT Viestiketju.* FROM Viestiketju,Viesti,Keskustelualue "
+        String kysely = "SELECT DISTINCT Viestiketju.* FROM Viestiketju,Viesti,Keskustelualue "
                 + "WHERE Viestiketju.id = Viesti.viestiketju "
                 + "AND Viestiketju.keskustelualue = Keskustelualue.id "
                 + "AND Viestiketju.keskustelualue = ? "
