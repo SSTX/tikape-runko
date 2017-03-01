@@ -53,6 +53,20 @@ public class ViestiDao extends Dao<Viesti, Viestiketju> {
         return this.database.kyselyTulokset(kysely, new ViestiKeraaja(), k.getId());
     }
 
+    public List<Viesti> etsiRajoin(Viestiketju k, int alaraja, int ylaraja) {
+        if (k == null) {
+            return null;
+        }
+        String kysely = "SELECT Viesti.* "
+                + "FROM Viesti,Viestiketju "
+                + "WHERE Viesti.viestiketju = Viestiketju.id "
+                + "AND Viestiketju.id = ? "
+                + "ORDER BY Viesti.aikaleima "
+                + "LIMIT ? OFFSET ?";
+        return this.database.kyselyTulokset(kysely, new ViestiKeraaja(), k.getId(), ylaraja, alaraja);
+    }
+
+
     public List<Viesti> etsiTasmaavat(Keskustelualue alue) {
         if (alue == null) {
             return null;

@@ -9,7 +9,7 @@
     <body>
         <h1>Heippa vaan!</h1>
         <div th:each="ketju : ${ketjut}">
-            <a th:href="@{'~/ketju/'+${ketju.id}}" th:text="${ketju.aihe}"></a>
+            <a th:href="@{'~/ketju/'+${ketju.id}+'?sivu=0'}" th:text="${ketju.aihe}"></a>
         </div>
         <div>
             <form method="POST">

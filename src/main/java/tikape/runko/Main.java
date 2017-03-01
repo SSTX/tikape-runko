@@ -38,7 +38,8 @@ public class Main {
         get("/alue/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
-            List<Viestiketju> ketjut = viestiketjuDao.viimeisimmatKymmenen(alue);
+            int sivu = Integer.parseInt(req.queryParams("sivu"));
+            List<Viestiketju> ketjut = viestiketjuDao.etsiRajoin(alue, sivu * 10, 10*(sivu + 1));
             List<Viesti> viimeisimmat = viestiDao.ketjujenViimeisimmat(ketjut);
             List<Integer> viestimaarat = viestiDao.ketjujenViestimaarat(ketjut);
             map.put("ketjut", ketjut);
@@ -51,7 +52,8 @@ public class Main {
         get("/ketju/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             Viestiketju ketju = viestiketjuDao.etsiYksi(Integer.parseInt(req.params(":id")));
-            List<Viesti> viestit = viestiDao.etsiTasmaavat(ketju);
+            int sivu = Integer.parseInt(req.queryParams("sivu"));
+            List<Viesti> viestit = viestiDao.etsiRajoin(ketju, 10*sivu, 10*(sivu + 1));
             map.put("viestit", viestit);
 
             return new ModelAndView(map, "viestiketju");

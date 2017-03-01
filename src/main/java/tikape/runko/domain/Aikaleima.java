@@ -32,6 +32,7 @@ public class Aikaleima implements Comparable<Aikaleima> {
     
     public Aikaleima(Date date) {
         this.form = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        this.form.setTimeZone(TimeZone.getTimeZone("UTC"));
         this.date = date;
     }
     

@@ -41,7 +41,7 @@ public class ViestiketjuDao extends Dao<Viestiketju, Keskustelualue> {
         return this.database.kyselyTulokset(kysely, new ViestiketjuKeraaja(), k.getId());
     }
     
-    public List<Viestiketju> viimeisimmatKetjutRajoin(Keskustelualue alue, int alaraja, int ylaraja){
+    public List<Viestiketju> etsiRajoin(Keskustelualue alue, int alaraja, int ylaraja){
         String kysely = "SELECT DISTINCT Viestiketju.* FROM Viestiketju,Viesti,Keskustelualue "
                 + "WHERE Viestiketju.id = Viesti.viestiketju "
                 + "AND Viestiketju.keskustelualue = Keskustelualue.id "
@@ -52,7 +52,7 @@ public class ViestiketjuDao extends Dao<Viestiketju, Keskustelualue> {
     }
     
     public List<Viestiketju> viimeisimmatKymmenen(Keskustelualue alue) {
-        return this.viimeisimmatKetjutRajoin(alue, 0, 10);
+        return this.etsiRajoin(alue, 0, 10);
     }
     
     public Viestiketju uusin() {
