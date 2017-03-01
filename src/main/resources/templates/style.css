@@ -9,5 +9,8 @@ and open the template in the editor.
 */
 
 div {
-    float:left;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 150px;
+    margin-left: 80px;
 }

@@ -4,6 +4,7 @@
     <head>
         <title>Otsikko</title>
         <meta charset="utf-8" />
+        <link rel="stylesheet" href="style.css" />
     </head>
 
     <body>
@@ -12,16 +13,15 @@
             <a th:href="@{'~/ketju/'+${ketju.id}+'?sivu=0'}" th:text="${ketju.aihe}"></a>
         </div>
         <div>
-            <form method="POST">
-                Aihe:<br />
+            <form method="POST" id="keskustelualueform">
+                Aihe<br />
                 <input type="text" name="aihe" />
-                Viesti<br/>
-                <input type="text" name="sisalto" />
+                <textarea name="sisalto" rows="15" cols="100">Kirjoita viestiketjun ensimmäinen viesti tähän</textarea>
                 Nimimerkki<br/>
                 <input type="text" name="nimimerkki" />
                 <input type="submit" name="viestitä" />
             </form>
         </div>
-
+        
     </body>
 </html>
