@@ -4,15 +4,41 @@
     <head>
         <meta charset="utf-8" />
         <title>Jännä Foorumi</title>
+        <style>
+            .container {
+                display: flex;
+            }
+
+            .nimet_linkit {
+                padding-right: 50px;
+                flex-grow: 1;
+            }
+
+            .viestimaarat {
+                width: 150px;
+            }
+
+            .aikaleimat {
+                width: 300px;
+            }
+        </style>
     </head>
 
     <body>
         <h1>Heippa vaan!</h1>
-        <div class="nimet" th:each="alue : ${alueet}">
-            <a th:href="@{'~/alue/'+${alue.id}+'?sivu=0'}" th:text="${alue}"></a>
-        </div>
-        <div class="viimeisinViesti" th:each="viimeisinViesti : ${viimeisimmatViestit}">
-            <span th:text="${viimeisinViesti != null} ? ${viimeisinViesti.aikaleima} : '-'"></span>
+        <div class="container">
+            <div class="nimet" >
+                <p> Keskustelualue </p>
+                <p th:each="alue : ${alueet}"> <a th:href="@{'~/alue/'+${alue.id}+'?sivu=0'}" th:text="${alue}"></a></p>
+            </div>
+            <div class="viestimaarat" >
+                <p>Viestejä yhteensä</p>
+                <p th:each="viestimaara : ${viestimaarat}" th:text="${viestimaara}"></p>
+            </div>
+            <div class="aikaleimat" >
+                <p>Viimeisin viesti</p>
+                <p th:each="viimeisinViesti : ${viimeisimmatViestit}" th:text="${viimeisinViesti != null} ? ${viimeisinViesti.aikaleima} : '-'"></p>
+            </div>
         </div>
         <div>
             <form method="POST">

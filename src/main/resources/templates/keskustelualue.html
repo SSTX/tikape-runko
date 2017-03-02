@@ -4,20 +4,40 @@
     <head>
         <title>Otsikko</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="style.css" type="text/css"></link>
+        <style>
+            .container {
+                display: flex;
+            }
+
+            .nimet_linkit {
+                padding-right: 50px;
+                flex-grow: 1;
+            }
+
+            .viestimaarat {
+                width: 150px;
+            }
+
+            .aikaleimat {
+                width: 300px;
+            }
+        </style>
     </head>
 
     <body>
         <h1>Heippa vaan!</h1>
         <div class="container">
-            <div class="nimet_linkit" th:each="ketju : ${ketjut}">
-                <a th:href="@{'~/ketju/'+${ketju.id}+'?sivu=0'}" th:text="${ketju.aihe}"></a>
+            <div class="nimet_linkit" >
+                <p>Viestiketjun aihe</p>
+                <p th:each="ketju : ${ketjut}"><a  th:href="@{'~/ketju/'+${ketju.id}+'?sivu=0'}" th:text="${ketju.aihe}"></a></p>
             </div>
-            <div class="viestimaarat" th:each="viestimaara : ${viestimaarat}">
-                <span th:text="${viestimaara}"></span>
+            <div class="viestimaarat" >
+                <p>Viestien määrä</p>
+                <p th:each="viestimaara : ${viestimaarat}" th:text="${viestimaara}"></p>
             </div>
-            <div class="aikaleimat" th:each="viimeisin : ${viimeisimmatViestit}">
-                <span th:text="${viimeisin.aikaleima}"></span>
+            <div class="aikaleimat" >
+                <p>Viimeisin viesti</p>
+                <p th:each="viimeisin : ${viimeisimmatViestit}" th:text="${viimeisin.aikaleima}"></p>
             </div>
 
         </div>

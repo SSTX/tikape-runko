@@ -7,7 +7,9 @@ and open the template in the editor.
     Created on : 23-Feb-2017, 16:18:29
     Author     : ttiira
 */
-
+body {
+    background-color: black;
+}
 
 .container {
     display: flex;

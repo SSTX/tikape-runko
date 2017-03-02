@@ -39,6 +39,7 @@ public class Main {
 
         get("/alue/:id", (req, res) -> {
             HashMap map = new HashMap<>();
+            System.out.println(req.params(":id"));
             Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
             int sivu = Integer.parseInt(req.queryParams("sivu"));
             int ketjujenMaara = viestiketjuDao.etsiTasmaavat(alue).size();
@@ -81,7 +82,7 @@ public class Main {
             viestiketjuDao.lisaa(alue, aihe);
             Viestiketju lisatty = viestiketjuDao.uusin();
             viestiDao.lisaa(lisatty, sisalto, nimimerkki, aikaleima);
-            res.redirect("/ketju/" + lisatty.getId());
+            res.redirect("/ketju/" + lisatty.getId() + "?sivu=" + req.queryParams("sivu"));
             return "";
         });
         
@@ -91,7 +92,7 @@ public class Main {
             String nimimerkki = req.queryParams("nimimerkki");
             Aikaleima aikaleima = new Aikaleima(new Date(System.currentTimeMillis()));
             viestiDao.lisaa(ketju, sisalto, nimimerkki, aikaleima);
-            res.redirect("/ketju/" + req.params(":id"));
+            res.redirect("/ketju/" + req.params(":id") + "?sivu=" + req.queryParams("sivu"));
             return "";
         });
     }
