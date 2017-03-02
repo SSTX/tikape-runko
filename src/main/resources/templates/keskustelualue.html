@@ -25,19 +25,21 @@
     </head>
 
     <body>
-        <h1 th:text="'Alue: ' + ${AlueenNimi}" >otsikko</h1>
-        
+        <h1 th:text="'Alue: ' + ${AlueenNimi}"></h1>
+        <a th:href="@{~/}" th:text='Takaisin'></a>
+
+
         <div class="container">
             <div class="nimet_linkit" >
-                <p>Viestiketjun aihe</p>
+                <h2>Viestiketjun aihe</h2>
                 <p th:each="ketju : ${ketjut}"><a  th:href="@{'~/ketju/'+${ketju.id}+'?sivu=0'}" th:text="${ketju.aihe}"></a></p>
             </div>
             <div class="viestimaarat" >
-                <p>Viestien määrä</p>
+                <h2>Viestejä</h2>
                 <p th:each="viestimaara : ${viestimaarat}" th:text="${viestimaara}"></p>
             </div>
             <div class="aikaleimat" >
-                <p>Viimeisin viesti</p>
+                <h2>Viimeisin viesti</h2>
                 <p th:each="viimeisin : ${viimeisimmatViestit}" th:text="${viimeisin.aikaleima}"></p>
             </div>
         </div>

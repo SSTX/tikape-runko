@@ -65,7 +65,8 @@ public class Main {
             int viestimaara = viestiDao.etsiTasmaavat(ketju).size();
             List<Viesti> viestit = viestiDao.etsiRajoin(ketju, KOHTEITA_SIVULLA*sivu, KOHTEITA_SIVULLA*(sivu + 1));
             String ketjunNimi = ketju.getAihe();
-            
+            Keskustelualue alue = keskustelualueDao.ketjunAlue(ketju);
+            map.put("alue", alue);
             map.put("ketjunNimi", ketjunNimi);
             map.put("viestimaara", viestimaara);
             map.put("viestit", viestit);

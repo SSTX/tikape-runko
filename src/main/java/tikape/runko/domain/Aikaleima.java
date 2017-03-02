@@ -22,7 +22,7 @@ public class Aikaleima implements Comparable<Aikaleima> {
 
     public Aikaleima(String aika) {
         this.form = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        this.form.setTimeZone(TimeZone.getTimeZone("UTC"));
+        this.form.setTimeZone(TimeZone.getTimeZone("Europe/Helsinki"));
         try {
             this.date = form.parse(aika);
         } catch (ParseException e) {
@@ -32,7 +32,7 @@ public class Aikaleima implements Comparable<Aikaleima> {
     
     public Aikaleima(Date date) {
         this.form = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        this.form.setTimeZone(TimeZone.getTimeZone("UTC"));
+        this.form.setTimeZone(TimeZone.getTimeZone("Europe/Helsinki"));
         this.date = date;
     }
     

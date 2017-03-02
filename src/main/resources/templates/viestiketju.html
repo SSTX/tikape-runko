@@ -4,12 +4,34 @@
     <head>
         <title></title>
         <meta charset="utf-8" />
+        <style>
+            .viestiContainer {
+                margin-top: 10px;
+                display: inline-block;
+                border: 2px solid black;
+            }
+
+            .viestinTiedot {
+                padding: 2px;
+                border-bottom: 2px solid gainsboro;
+            }
+
+            .viestinSisalto {
+                padding: 2px;
+            }
+        </style>
     </head>
 
     <body>
-        <h1 th:text=" Ketju: ' + ${ketjunNimi}" >< </h1>
-        <div class="container">
-            <div th:each="viesti : ${viestit}">
+        <h1 >
+            <a th:href="@{'~/alue/'+${alue.id}+'?sivu=0'}" th:text="${alue.nimi}"></a>
+            <span th:text="'-->'+${ketjunNimi}"></span>
+        </h1>
+        <div class="viestiContainer" th:each="viesti : ${viestit}">
+            <div class="viestinTiedot">
+                <span th:text="${viesti.nimimerkki}+' '+${viesti.aikaleima}"></span>
+            </div>
+            <div class="viestinSisalto">
                 <span th:text="${viesti.sisalto}"></span>
             </div>
         </div>

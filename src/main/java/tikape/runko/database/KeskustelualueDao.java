@@ -43,6 +43,18 @@ public class KeskustelualueDao extends Dao<Keskustelualue, Keskustelualue> {
         return this.etsiKaikki();
     }
     
+    public Keskustelualue ketjunAlue(Viestiketju k) {
+        String kysely = "SELECT * FROM Keskustelualue,Viestiketju "
+                + "WHERE Keskustelualue.id = Viestiketju.keskustelualue "
+                + "AND Viestiketju.id = ?";
+        List<Keskustelualue> tulokset = this.database.kyselyTulokset(kysely, new KeskustelualueKeraaja(), k.getId());
+        if (tulokset.isEmpty()) {
+            return null;
+        } else {
+            return tulokset.get(0);
+        }
+    }
+    
     public void lisaa(String nimi) {
         String kysely = "INSERT INTO Keskustelualue (nimi) "
                 + "VALUES (?)";
