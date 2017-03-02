@@ -41,10 +41,12 @@ public class Main {
             HashMap map = new HashMap<>();
             Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
             int sivu = Integer.parseInt(req.queryParams("sivu"));
+            int ketjujenMaara = viestiketjuDao.etsiTasmaavat(alue).size();
             List<Viestiketju> ketjut = viestiketjuDao.etsiRajoin(alue, sivu * KOHTEITA_SIVULLA, KOHTEITA_SIVULLA*(sivu + 1));
             List<Viesti> viimeisimmat = viestiDao.ketjujenViimeisimmat(ketjut);
             List<Integer> viestimaarat = viestiDao.ketjujenViestimaarat(ketjut);
             map.put("ketjut", ketjut);
+            map.put("ketjujenMaara", ketjujenMaara);
             map.put("viimeisimmatViestit", viimeisimmat);
             map.put("viestimaarat", viestimaarat);
 
@@ -55,9 +57,11 @@ public class Main {
             HashMap map = new HashMap<>();
             Viestiketju ketju = viestiketjuDao.etsiYksi(Integer.parseInt(req.params(":id")));
             int sivu = Integer.parseInt(req.queryParams("sivu"));
+            int viestimaara = viestiDao.etsiTasmaavat(ketju).size();
             List<Viesti> viestit = viestiDao.etsiRajoin(ketju, KOHTEITA_SIVULLA*sivu, KOHTEITA_SIVULLA*(sivu + 1));
+            map.put("viestimaara", viestimaara);
             map.put("viestit", viestit);
-
+            
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
 

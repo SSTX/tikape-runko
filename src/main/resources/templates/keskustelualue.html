@@ -9,19 +9,27 @@
 
     <body>
         <h1>Heippa vaan!</h1>
-        <div th:each="ketju : ${ketjut}">
-            <a th:href="@{'~/ketju/'+${ketju.id}+'?sivu=0'}" th:text="${ketju.aihe}"></a>
+        <div>>
+            <div th:each="ketju : ${ketjut}">
+                <a th:href="@{'~/ketju/'+${ketju.id}+'?sivu=0'}" th:text="${ketju.aihe}"></a>
+            </div>
+            <div th:each="viestimaara : ${viestimaarat}">
+                <span th:text="${viestimaara}"></span>
+            </div>
+            <div th:each="viimeisin : ${viimeisimmatViestit}">
+                <span th:text="${viimeisin.aikaleima}"></span>
+            </div>
+
         </div>
         <div>
             <form method="POST" id="keskustelualueform">
-                Aihe<br />
-                <input type="text" name="aihe" />
-                <textarea name="sisalto" rows="15" cols="100">Kirjoita viestiketjun ensimmäinen viesti tähän</textarea>
-                Nimimerkki<br/>
-                <input type="text" name="nimimerkki" />
+
+                <input type="text" name="aihe" />Aihe<br />
+                <textarea name="sisalto" rows="15" cols="100">Kirjoita viestiketjun ensimmäinen viesti tähän</textarea><br />
+                <input type="text" name="nimimerkki" />Nimimerkki<br/>
                 <input type="submit" name="viestitä" />
             </form>
         </div>
-        
+
     </body>
 </html>
