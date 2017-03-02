@@ -36,7 +36,7 @@ public class Viesti implements Comparable<Viesti> {
     }
 
     public String getSisalto() {
-        return sisalto;
+        return this.nimimerkki + ": " + sisalto;
     }
 
     public Aikaleima getAikaleima() {

@@ -46,6 +46,9 @@ public class Main {
             List<Viestiketju> ketjut = viestiketjuDao.etsiRajoin(alue, sivu * KOHTEITA_SIVULLA, KOHTEITA_SIVULLA*(sivu + 1));
             List<Viesti> viimeisimmat = viestiDao.ketjujenViimeisimmat(ketjut);
             List<Integer> viestimaarat = viestiDao.ketjujenViestimaarat(ketjut);
+            String AlueenNimi = alue.getNimi();
+            
+            map.put("AlueenNimi",AlueenNimi);
             map.put("ketjut", ketjut);
             map.put("ketjujenMaara", ketjujenMaara);
             map.put("viimeisimmatViestit", viimeisimmat);
@@ -60,6 +63,9 @@ public class Main {
             int sivu = Integer.parseInt(req.queryParams("sivu"));
             int viestimaara = viestiDao.etsiTasmaavat(ketju).size();
             List<Viesti> viestit = viestiDao.etsiRajoin(ketju, KOHTEITA_SIVULLA*sivu, KOHTEITA_SIVULLA*(sivu + 1));
+            String ketjunNimi = ketju.getAihe();
+            
+            map.put("ketjunNimi", ketjunNimi);
             map.put("viestimaara", viestimaara);
             map.put("viestit", viestit);
             

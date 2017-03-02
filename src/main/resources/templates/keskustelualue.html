@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title></title>
         <meta charset="utf-8" />
         <style>
             .container {
@@ -25,7 +25,8 @@
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1 th:text="'Alue: ' + ${AlueenNimi}" >otsikko</h1>
+        
         <div class="container">
             <div class="nimet_linkit" >
                 <p>Viestiketjun aihe</p>
