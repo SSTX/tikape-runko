@@ -11,6 +11,8 @@ import tikape.runko.domain.*;
 
 public class Main {
 
+    static final int KOHTEITA_SIVULLA = 10;
+
     public static void main(String[] args) throws Exception {
         
         // asetetaan portti jos heroku antaa PORT-ympäristömuuttujan
@@ -39,7 +41,7 @@ public class Main {
             HashMap map = new HashMap<>();
             Keskustelualue alue = keskustelualueDao.etsiYksi(Integer.parseInt(req.params(":id")));
             int sivu = Integer.parseInt(req.queryParams("sivu"));
-            List<Viestiketju> ketjut = viestiketjuDao.etsiRajoin(alue, sivu * 10, 10*(sivu + 1));
+            List<Viestiketju> ketjut = viestiketjuDao.etsiRajoin(alue, sivu * KOHTEITA_SIVULLA, KOHTEITA_SIVULLA*(sivu + 1));
             List<Viesti> viimeisimmat = viestiDao.ketjujenViimeisimmat(ketjut);
             List<Integer> viestimaarat = viestiDao.ketjujenViestimaarat(ketjut);
             map.put("ketjut", ketjut);
@@ -53,7 +55,7 @@ public class Main {
             HashMap map = new HashMap<>();
             Viestiketju ketju = viestiketjuDao.etsiYksi(Integer.parseInt(req.params(":id")));
             int sivu = Integer.parseInt(req.queryParams("sivu"));
-            List<Viesti> viestit = viestiDao.etsiRajoin(ketju, 10*sivu, 10*(sivu + 1));
+            List<Viesti> viestit = viestiDao.etsiRajoin(ketju, KOHTEITA_SIVULLA*sivu, KOHTEITA_SIVULLA*(sivu + 1));
             map.put("viestit", viestit);
 
             return new ModelAndView(map, "viestiketju");
