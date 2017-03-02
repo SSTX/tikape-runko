@@ -46,6 +46,7 @@ public class Main {
             List<Viestiketju> ketjut = viestiketjuDao.etsiRajoin(alue, sivu * KOHTEITA_SIVULLA, KOHTEITA_SIVULLA*(sivu + 1));
             List<Viesti> viimeisimmat = viestiDao.ketjujenViimeisimmat(ketjut);
             List<Integer> viestimaarat = viestiDao.ketjujenViestimaarat(ketjut);
+            map.put("alue", alue);
             map.put("ketjut", ketjut);
             map.put("ketjujenMaara", ketjujenMaara);
             map.put("viimeisimmatViestit", viimeisimmat);
@@ -62,7 +63,7 @@ public class Main {
             List<Viesti> viestit = viestiDao.etsiRajoin(ketju, KOHTEITA_SIVULLA*sivu, KOHTEITA_SIVULLA*(sivu + 1));
             map.put("viestimaara", viestimaara);
             map.put("viestit", viestit);
-            
+            map.put("ketju", ketju);
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
 
