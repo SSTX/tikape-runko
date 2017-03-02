@@ -49,6 +49,7 @@ public class Main {
             String AlueenNimi = alue.getNimi();
             
             map.put("AlueenNimi",AlueenNimi);
+            map.put("alue", alue);
             map.put("ketjut", ketjut);
             map.put("ketjujenMaara", ketjujenMaara);
             map.put("viimeisimmatViestit", viimeisimmat);
@@ -68,7 +69,7 @@ public class Main {
             map.put("ketjunNimi", ketjunNimi);
             map.put("viestimaara", viestimaara);
             map.put("viestit", viestit);
-            
+            map.put("ketju", ketju);
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
 

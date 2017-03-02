@@ -7,10 +7,15 @@
     </head>
 
     <body>
-        <h1 th:text="'Aihe: ' + ${ketjunNimi}">otsikko</h1>
-        
-        <div th:each="viesti : ${viestit}">
-            <span th:text="${viesti.sisalto}"></span>
+        <h1 th:text=" Ketju: ' + ${ketjunNimi}" >< </h1>
+        <div class="container">
+            <div th:each="viesti : ${viestit}">
+                <span th:text="${viesti.sisalto}"></span>
+            </div>
+        </div>
+        <div class="sivu_linkit">
+            <span>Sivu: </span>
+            <a th:each="i : ${#numbers.sequence(0, viestimaara / 10)}" th:href="@{'~/ketju/'+${ketju.id}+'?sivu='+${i}}" th:text="'['+${i}+']'"></a>
         </div>
         <div>
             <form method="POST">
@@ -19,5 +24,6 @@
                 <input type="submit" name="viestitä" />
             </form>
         </div>
+
     </body>
 </html>
