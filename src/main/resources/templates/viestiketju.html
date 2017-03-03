@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title></title>
+        <title th:text="'F-orum: '+${alue.nimi}+'-->'+${ketjunNimi}"></title>
         <meta charset="utf-8" />
         <style>
             .viestiContainer {
@@ -18,6 +18,10 @@
 
             .viestinSisalto {
                 padding: 2px;
+            }
+            
+            .input {
+                margin-top: 20px;
             }
         </style>
     </head>
@@ -39,11 +43,12 @@
             <span>Sivu: </span>
             <a th:each="i : ${#numbers.sequence(0, viestimaara / 10)}" th:href="@{'~/ketju/'+${ketju.id}+'?sivu='+${i}}" th:text="'['+${i}+']'"></a>
         </div>
-        <div>
+        <div class="input">
+            Vastaa ketjuun:
             <form method="POST">
-                <textarea name="sisalto" rows="15" cols="100">Kirjoita viestiketjun ensimmäinen viesti tähän</textarea><br />
-                Nimimerkki:<input type="text" name="nimimerkki" /><br />
-                <input type="submit" name="viestitä" />
+                <textarea name="sisalto" rows="15" cols="100" placeholder="Viesti" maxlength="5000"></textarea><br />
+                <input type="text" name="nimimerkki" placeholder="Nimimerkki" maxlength="30" /><br />
+                <input type="submit" name="viestitä" value="Viestitä!" />
             </form>
         </div>
 

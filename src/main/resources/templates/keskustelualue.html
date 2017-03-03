@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title></title>
+        <title th:text="'F-orum: ' + ${AlueenNimi}"></title>
         <meta charset="utf-8" />
         <style>
             .container {
@@ -15,11 +15,16 @@
             }
 
             .viestimaarat {
+                margin-left: 20px;
                 width: 150px;
             }
 
             .aikaleimat {
                 width: 300px;
+            }
+            
+            .input {
+                margin-top: 20px;
             }
         </style>
     </head>
@@ -47,13 +52,13 @@
             <span>Sivu: </span>
             <a th:each="i : ${#numbers.sequence(0, ketjujenMaara / 10)}" th:href="@{'~/alue/'+${alue.id}+'?sivu='+${i}}" th:text="'['+${i}+']'"></a>
         </div>
-        <div>
+        <div class="input">
+            Luo uusi viestiketju:
             <form method="POST" id="keskustelualueform">
-
-                Aihe:<input type="text" name="aihe" /><br />
-                <textarea name="sisalto" rows="15" cols="100">Kirjoita viestiketjun ensimmäinen viesti tähän</textarea><br />
-                Nimimerkki:<input type="text" name="nimimerkki" /><br/>
-                <input type="submit" name="viestitä" />
+                <input type="text" name="aihe" placeholder="Ketjun aihe" maxlength="100"/><br />
+                <textarea name="sisalto" rows="15" cols="100" placeholder="Viesti" maxlength="5000"></textarea><br />
+                <input type="text" name="nimimerkki" placeholder="Nimimerkki" maxlength="30"/><br/>
+                <input type="submit" name="viestitä" value="Luo viestiketju"/>
             </form>
         </div>
 

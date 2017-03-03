@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Jännä Foorumi</title>
+        <title>F-orum</title>
         <style>
             .container {
                 display: flex;
@@ -15,36 +15,41 @@
             }
 
             .viestimaarat {
+                margin-left: 20px;
                 width: 150px;
             }
 
             .aikaleimat {
                 width: 300px;
             }
+
+            .input {
+                margin-top: 20px;
+            }
         </style>
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1>F-orum</h1>
         <div class="container">
             <div class="nimet" >
-                <p> Keskustelualue </p>
+                <h2> Keskustelualue </h2>
                 <p th:each="alue : ${alueet}"> <a th:href="@{'~/alue/'+${alue.id}+'?sivu=0'}" th:text="${alue}"></a></p>
             </div>
             <div class="viestimaarat" >
-                <p>Viestejä yhteensä</p>
+                <h2>Viestejä</h2>
                 <p th:each="viestimaara : ${viestimaarat}" th:text="${viestimaara}"></p>
             </div>
             <div class="aikaleimat" >
-                <p>Viimeisin viesti</p>
+                <h2>Viimeisin viesti</h2>
                 <p th:each="viimeisinViesti : ${viimeisimmatViestit}" th:text="${viimeisinViesti != null} ? ${viimeisinViesti.aikaleima} : '-'"></p>
             </div>
         </div>
-        <div>
+        <div class="input">
             <form method="POST">
-                Nimi:<br/>
-                <input type="text" name="nimi" />
-                <input type="submit" name="luo" />
+                Lisää keskustelualue:<br/>
+                <input type="text" name="nimi" placeholder="Alueen nimi" maxlength="100"/>
+                <input type="submit" name="luo" value="Lisää" />
             </form>
         </div>
 

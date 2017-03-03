@@ -42,11 +42,12 @@ public class ViestiketjuDao extends Dao<Viestiketju, Keskustelualue> {
     }
     
     public List<Viestiketju> etsiRajoin(Keskustelualue alue, int alaraja, int ylaraja){
-        String kysely = "SELECT DISTINCT Viestiketju.* FROM Viestiketju,Viesti,Keskustelualue "
+        String kysely = "SELECT DISTINCT * FROM ("
+                + "SELECT Viestiketju.* FROM Viestiketju,Viesti,Keskustelualue "
                 + "WHERE Viestiketju.id = Viesti.viestiketju "
                 + "AND Viestiketju.keskustelualue = Keskustelualue.id "
                 + "AND Viestiketju.keskustelualue = ? "
-                + "ORDER BY Viesti.aikaleima DESC "
+                + "ORDER BY Viesti.aikaleima DESC) "
                 + "LIMIT ? OFFSET ?";
         return this.database.kyselyTulokset(kysely, new ViestiketjuKeraaja(), alue.getId(), ylaraja, alaraja);
     }

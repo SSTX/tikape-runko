@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author ttiira
  */
-public class Keskustelualue {
+public class Keskustelualue implements Comparable<Keskustelualue>{
     private int id;
     private List<Viestiketju> viestiketjut;
     private String nimi;
@@ -50,6 +50,11 @@ public class Keskustelualue {
     @Override
     public String toString() {
         return this.nimi;
+    }
+
+    @Override
+    public int compareTo(Keskustelualue o) {
+        return this.getNimi().compareTo(o.getNimi());
     }
     
 }

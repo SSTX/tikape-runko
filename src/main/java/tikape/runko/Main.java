@@ -28,6 +28,7 @@ public class Main {
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             List<Keskustelualue> alueet = keskustelualueDao.etsiKaikki();
+            alueet.sort(Keskustelualue::compareTo);
             List<Viesti> viimeisimmat = viestiDao.alueidenViimeisimmat(alueet);
             List<Integer> viestimaarat = viestiDao.alueidenViestimaarat(alueet);
             map.put("alueet", alueet);
