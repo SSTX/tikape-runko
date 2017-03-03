@@ -12,7 +12,9 @@ import java.util.List;
  *
  * @author ttiira
  */
-public class Keskustelualue implements Comparable<Keskustelualue>{
+
+public class Keskustelualue implements Comparable<Keskustelualue> {
+    
     private int id;
     private List<Viestiketju> viestiketjut;
     private String nimi;

@@ -1,5 +1,6 @@
 package tikape.runko;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ public class Main {
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             List<Keskustelualue> alueet = keskustelualueDao.etsiKaikki();
-            alueet.sort(Keskustelualue::compareTo);
+            Collections.sort(alueet);           
             List<Viesti> viimeisimmat = viestiDao.alueidenViimeisimmat(alueet);
             List<Integer> viestimaarat = viestiDao.alueidenViestimaarat(alueet);
             map.put("alueet", alueet);
